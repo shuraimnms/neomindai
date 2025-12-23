@@ -1,0 +1,36 @@
+{
+  "name": "academy-backend",
+  "version": "1.0.0",
+  "description": "Student Academy MVP Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node scripts/test-api.js",
+    "db:init": "node scripts/init-db.js",
+    "db:test": "node scripts/test-db.js",
+    "auth:test": "node scripts/test-auth.js",
+    "api:test": "node scripts/test-api.js",
+    "reset-db": "node scripts/init-db.js --force"
+  },
+  "keywords": ["academy", "education", "mvp"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.32.1",
+    "socket.io": "^4.7.2",
+    "node-fetch": "^2.6.7"
+    ,"multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
