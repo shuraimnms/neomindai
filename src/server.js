@@ -41,7 +41,7 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL,
       'http://localhost:5173',
-      'https://neomindai-frontend.vercel.app',
+      'https://neoxmind.netlify.app',
       'https://your-frontend-url.vercel.app'
     ];
 
@@ -199,7 +199,7 @@ app.use((err, req, res, next) => {
       allowed_origins: [
         process.env.FRONTEND_URL,
         'http://localhost:5173',
-        'https://neomindai-frontend.vercel.app',
+        'https://neoxmind.netlify.app',
         'https://your-frontend-url.vercel.app'
       ]
     });
@@ -230,7 +230,7 @@ const startServer = async () => {
           const allowedOrigins = [
             process.env.FRONTEND_URL,
             'http://localhost:5173',
-            'https://neomindai-frontend.vercel.app',
+            'https://neoxmind.netlify.app',
             'https://your-frontend-url.vercel.app'
           ];
 
