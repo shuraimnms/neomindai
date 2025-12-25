@@ -23,11 +23,7 @@ const Assignment = sequelize.define('Assignment', {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  category: {
-    type: DataTypes.ENUM('quiz', 'assignment', 'test', 'exam'),
-    defaultValue: 'assignment',
-    allowNull: false
-  },
+
   status: {
     type: DataTypes.ENUM('draft', 'published', 'locked'),
     defaultValue: 'draft',
@@ -87,7 +83,7 @@ const Assignment = sequelize.define('Assignment', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id'
     }
   }
@@ -96,8 +92,7 @@ const Assignment = sequelize.define('Assignment', {
   indexes: [
     { fields: ['status'] },
     { fields: ['due_date'] },
-    { fields: ['created_by'] },
-    { fields: ['category'] }
+    { fields: ['created_by'] }
   ]
 });
 

@@ -15,7 +15,7 @@ const AssignmentRecipient = sequelize.define('AssignmentRecipient', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'Assignments',
+      model: 'assignments',
       key: 'id'
     },
     onDelete: 'CASCADE'
@@ -30,7 +30,7 @@ const AssignmentRecipient = sequelize.define('AssignmentRecipient', {
     type: DataTypes.UUID,
     allowNull: true,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id'
     },
     onDelete: 'CASCADE'

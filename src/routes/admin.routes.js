@@ -8,7 +8,13 @@ const {
   getAdminDashboard,
   getAllStudents,
   toggleStudentStatus,
-  getStudentDetails
+  getStudentDetails,
+  getAllAssignments,
+  getAssignmentDetails,
+  createAssignment,
+  updateAssignment,
+  deleteAssignment,
+  getAssignmentStats
 } = require('../controllers/admin.controller');
 const multer = require('multer');
 const path = require('path');
@@ -57,6 +63,14 @@ router.get('/library/:id', getBookById);
 router.put('/library/:id', upload.single('file'), updateBook);
 router.delete('/library/:id', deleteBook);
 
-// (Assignments removed)
+// -------------------------
+// Admin Assignments
+// -------------------------
+router.get('/assignments', getAllAssignments);
+router.get('/assignments/stats', getAssignmentStats);
+router.get('/assignments/:id', getAssignmentDetails);
+router.post('/assignments', createAssignment);
+router.put('/assignments/:id', updateAssignment);
+router.delete('/assignments/:id', deleteAssignment);
 
 module.exports = router;

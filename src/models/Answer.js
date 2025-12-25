@@ -81,7 +81,7 @@ const Answer = sequelize.define('Answer', {
     type: DataTypes.UUID,
     allowNull: true,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id'
     }
   },

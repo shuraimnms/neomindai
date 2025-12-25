@@ -15,7 +15,7 @@ const Question = sequelize.define('Question', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'Assignments',
+      model: 'assignments',
       key: 'id'
     },
     onDelete: 'CASCADE'

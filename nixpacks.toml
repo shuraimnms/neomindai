@@ -1,0 +1,11 @@
+[phases.setup]
+cmds = ["apt-get update && apt-get install -y build-essential"]
+
+[phases.install]
+cmds = ["npm ci --only=production"]
+
+[phases.build]
+cmds = ["npm run build || echo 'No build script'"]
+
+[start]
+cmd = "node src/server.js"

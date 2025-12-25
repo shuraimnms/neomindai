@@ -14,6 +14,9 @@ require('dotenv').config();
 const { testConnection, syncDatabase } = require('./config/database');
 const seedDatabase = require('./config/seed');
 
+// Models (to set up associations)
+require('./models/index');
+
 // Routes
 const authRoutes = require('./routes/auth.routes');
 const videoRoutes = require('./routes/video.routes');
@@ -23,7 +26,7 @@ const chatRoutes = require('./routes/chat.routes');
 const libraryRoutes = require('./routes/library.routes');
 
 // Auth utilities
-const { verifyToken } = require('./utils/auth');
+const { verifyToken } = require('./config/jwt');
 
 // Initialize Express app
 const app = express();
@@ -73,7 +76,7 @@ const initializeDatabase = async () => {
     }
     
     // Sync database (create tables if they don't exist)
-    await syncDatabase(false);
+    await syncDatabase(false); // Sync without forcing to preserve existing data
     
     // Seed database with default admin
     await seedDatabase();

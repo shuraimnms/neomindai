@@ -6,31 +6,34 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 // Create Sequelize instance
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'academy_db',
-  process.env.DB_USER || 'postgres',
-  process.env.DB_PASSWORD || 'password123',
-  {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
-    dialect: 'postgres',
-    logging: process.env.DB_LOGGING === 'true' ? console.log : false,
-    
-    pool: {
-      max: parseInt(process.env.DB_POOL_MAX) || 10,
-      min: parseInt(process.env.DB_POOL_MIN) || 0,
-      acquire: parseInt(process.env.DB_POOL_ACQUIRE) || 30000,
-      idle: parseInt(process.env.DB_POOL_IDLE) || 10000
-    },
-    
-    define: {
-      timestamps: true,
-      underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
-  }
-);
+const sequelize = process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: 'postgres',
+      logging: process.env.DB_LOGGING === 'true' ? console.log : false,
+      dialectOptions: {
+        ssl: process.env.NODE_ENV === 'production' ? {
+          require: true,
+          rejectUnauthorized: false
+        } : false
+      },
+      define: {
+        timestamps: true,
+        underscored: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+      }
+    })
+  : new Sequelize({
+      dialect: 'sqlite',
+      storage: './database.sqlite',
+      logging: process.env.DB_LOGGING === 'true' ? console.log : false,
+      define: {
+        timestamps: true,
+        underscored: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+      }
+    });
 
 // Test database connection
 const testConnection = async () => {

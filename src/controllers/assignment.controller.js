@@ -47,7 +47,7 @@ const getAssignmentsForStudent = async (req, res) => {
         }
       ],
       attributes: [
-        'id', 'title', 'description', 'category', 'status',
+        'id', 'title', 'description', 'status',
         'start_date', 'due_date', 'total_marks', 'time_limit',
         'attempt_limit', 'allow_late_submission'
       ]
@@ -157,7 +157,7 @@ const getAssignmentForStudentById = async (req, res) => {
         }
       ],
       attributes: [
-        'id', 'title', 'description', 'category', 'status',
+        'id', 'title', 'description', 'status',
         'start_date', 'due_date', 'total_marks', 'time_limit',
         'attempt_limit', 'allow_late_submission', 'shuffle_questions', 'shuffle_options'
       ]

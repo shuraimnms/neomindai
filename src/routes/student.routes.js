@@ -8,7 +8,8 @@ const {
   getStudentDashboard,
   getStudentProfile,
   updateStudentProfile,
-  getStudentVideos
+  getStudentVideos,
+  getStudentAssignments
 } = require('../controllers/student.controller');
 const { protect, restrictTo } = require('../middleware/auth.middleware');
 

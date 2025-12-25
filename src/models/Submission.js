@@ -15,7 +15,7 @@ const Submission = sequelize.define('Submission', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'Assignments',
+      model: 'assignments',
       key: 'id'
     },
     onDelete: 'CASCADE'
@@ -24,7 +24,7 @@ const Submission = sequelize.define('Submission', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id'
     },
     onDelete: 'CASCADE'
@@ -93,7 +93,7 @@ const Submission = sequelize.define('Submission', {
     type: DataTypes.UUID,
     allowNull: true,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'id'
     }
   },

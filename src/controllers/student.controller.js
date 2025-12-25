@@ -4,6 +4,9 @@
 
 const User = require('../models/User');
 const Video = require('../models/Video');
+const Assignment = require('../models/Assignment');
+const AssignmentRecipient = require('../models/AssignmentRecipient');
+const Submission = require('../models/Submission');
 
 // @desc    Get student dashboard data
 // @route   GET /api/student/dashboard
@@ -119,13 +122,13 @@ const getStudentVideos = async (req, res) => {
       order: [['created_at', 'DESC']],
       limit: 50 // Limit for student view
     });
-    
+
     res.status(200).json({
       status: 'success',
       message: 'Videos fetched successfully',
       data: { videos }
     });
-    
+
   } catch (error) {
     console.error('Get student videos error:', error);
     res.status(500).json({
@@ -135,9 +138,78 @@ const getStudentVideos = async (req, res) => {
   }
 };
 
+// @desc    Get assignments for student
+// @route   GET /api/student/assignments
+// @access  Private (Student only)
+const getStudentAssignments = async (req, res) => {
+  try {
+    // Get assignments assigned to this student
+    const assignments = await Assignment.findAll({
+      where: {
+        status: 'published' // Only show published assignments
+      },
+      include: [
+        {
+          model: AssignmentRecipient,
+          as: 'recipients',
+          where: {
+            student_id: req.user.id,
+            recipient_type: 'selected_students'
+          },
+          required: true // Only include assignments where student is a recipient
+        },
+        {
+          model: Submission,
+          as: 'submissions',
+          where: {
+            student_id: req.user.id
+          },
+          required: false // Include submissions if they exist
+        }
+      ],
+      order: [['due_date', 'ASC']]
+    });
+
+    // Transform assignments to include submission status
+    const transformedAssignments = assignments.map(assignment => {
+      const submission = assignment.submissions?.[0];
+      let status = 'pending';
+
+      if (submission) {
+        status = submission.status;
+      } else if (new Date(assignment.due_date) < new Date()) {
+        status = 'overdue';
+      }
+
+      return {
+        id: assignment.id,
+        title: assignment.title,
+        description: assignment.description,
+        due_date: assignment.due_date,
+        created_at: assignment.created_at,
+        status: status
+      };
+    });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Assignments fetched successfully',
+      data: { assignments: transformedAssignments }
+    });
+
+  } catch (error) {
+    console.error('Get student assignments error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Failed to fetch assignments'
+    });
+  }
+};
+
 module.exports = {
   getStudentDashboard,
   getStudentProfile,
   updateStudentProfile,
-  getStudentVideos
+  getStudentVideos,
+  getStudentAssignments
 };
