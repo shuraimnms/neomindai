@@ -127,7 +127,7 @@ const sampleAssignments = [
         question_text: 'Solve for x: 2x + 3 = 7',
         question_type: 'text',
         correct_answer: 'x = 2',
-        points: 1,
+        points: 1, 
         options: []
       },
       {
